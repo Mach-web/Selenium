@@ -18,11 +18,12 @@ class PythonOrgSearch(unittest.TestCase):
 
         element = driver.find_element(By.CSS_SELECTOR, "#description")
         element.send_keys("Hello by CSS_SEECTOR")
+        element.clear()
 
         element = driver.find_element(By.XPATH, '//*[@id="description"]')
         element.send_keys("Hello There by Xpath")
         btn = driver.find_element(By.XPATH, '//*[@id="go"]').click()
-        # forms.submit()
+        # element.submit()
 
 	    #elem = driver.find_element(By.NAME, "q")
         #elem.send_keys("pycon")
