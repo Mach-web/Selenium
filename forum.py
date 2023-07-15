@@ -26,9 +26,12 @@ HTML_WRAP = '''\
   </head>
   <body>
     <h1>DB Forum</h1>
-    <input type="text" name="passwd" id="passwd-id" />
+
     <form method=post>
+      <h6>Enter your name</h6>
       <div><textarea id="content" name="content"></textarea></div>
+      <h6>Describe yourself</h6>
+      <div><textarea id="description" name="description"></textarea></div>
       <div><button id="go" type="submit">Post message</button></div>
     </form>
     <!-- post content will go here -->
@@ -40,14 +43,14 @@ HTML_WRAP = '''\
 
 # HTML template for an individual comment
 POST = '''\
-    <div class=post><em class=date>%s</em><br>%s</div>
+    <div class=post><em class=date>%s</em><br>%s<br>%s</div>
 '''
 
 
 @app.route('/', methods=['GET'])
 def main():
   '''Main page of the forum.'''
-  posts = "".join(POST % (date, text) for text, date in get_posts())
+  posts = "".join(POST % (date, text, description) for text, description, date in get_posts())
   html = HTML_WRAP % posts
   return html
 
@@ -56,7 +59,8 @@ def main():
 def post():
   '''New post submission.'''
   message = request.form['content']
-  add_post(message)
+  description = request.form['description']
+  add_post(message, description)
   return redirect(url_for('main'))
 
 

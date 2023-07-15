@@ -11,14 +11,18 @@ class PythonOrgSearch(unittest.TestCase):
         driver = self.driver
         driver.get("http://127.0.0.1:8000/")
         self.assertIn("DB", driver.title)
-        # self.assertIn("Forum", driver.h1)
 
         element = driver.find_element(By.ID, "content")
-        element.send_keys("Hello")
+        element.send_keys("Hello by Id")
         # elem = driver.find_element(By.ID, "go").click()
-        element.submit()
 
+        element = driver.find_element(By.CSS_SELECTOR, "#description")
+        element.send_keys("Hello by CSS_SEECTOR")
 
+        element = driver.find_element(By.XPATH, '//*[@id="description"]')
+        element.send_keys("Hello There by Xpath")
+        btn = driver.find_element(By.XPATH, '//*[@id="go"]').click()
+        # forms.submit()
 
 	    #elem = driver.find_element(By.NAME, "q")
         #elem.send_keys("pycon")
